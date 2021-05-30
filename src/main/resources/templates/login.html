@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="head :: common_header(~{::title},~{})">
+    <title>Izanagi</title>
+</head>
+
+<body>
+<div class="container">
+
+    <a href="#" title="izanagi"><span><img src="/images/izanagi.jpg" height="180" width="211"></img></span></a>
+
+    <form class="row g-3" th:action="@{/login}" method="post">
+        <div class="col-12">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">login</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <div th:insert="footer :: footer"></div>
+
+</div>
+
+<div th:replace="bootstrap-js :: bootstrap-js"></div>
+
+</body>
+</html>

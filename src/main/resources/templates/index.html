@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="head :: common_header(~{::title},~{})">
+  <title>izanagi</title>
+</head>
+
+<body>
+
+<div class="container">
+
+  <hr/>
+
+  <a href="/izanagi"><button type="button" class="btn btn-primary">izanagi</button></a>
+
+  <hr/>
+
+  <div th:replace="footer :: footer"></div>
+
+  <div th:replace="bootstrap-js :: bootstrap-js"></div>
+
+</div>
+
+</body>
+</html>

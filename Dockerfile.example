@@ -1,0 +1,72 @@
+FROM ubuntu:20.04
+
+MAINTAINER dev
+
+# Package
+RUN sed -i 's@archive.ubuntu.com@www.ftp.ne.jp/Linux/packages/ubuntu/archive@g' /etc/apt/sources.list
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends tzdata
+ENV TZ=Asia/Tokyo
+
+RUN apt-get install -y --no-install-recommends \
+  git curl \
+  # epgdump
+  build-essential cmake \
+  # recdvb
+  automake \
+  # locale
+  locales \
+  # Java
+  openjdk-11-jre-headless && \
+  apt-get -y clean && \
+  rm -rf /var/lib/apt/lists/*
+
+# epgdump
+RUN cd /tmp && \
+  git clone https://github.com/Piro77/epgdump.git && \
+  cd epgdump && \
+  ./autogen.sh && \
+  make && \
+  make install
+
+# recdvb
+RUN cd /tmp && \
+  git clone https://github.com/dogeel/recdvb && \
+  cd recdvb && \
+  chmod a+x autogen.sh && \
+  ./autogen.sh && \
+  ./configure && \
+  make -j$(nproc) && \
+  make install
+
+# recpt1 for PX-W3U4
+RUN cd /tmp && \
+  git clone https://github.com/stz2012/recpt1.git && \
+  cd recpt1/recpt1 && \
+  sed -i -e "/^char \*bsdev\[NUM_BSDEV\] = {$/a \ \ \ \ \"/dev/px4video1\",\n\ \ \ \ \"/dev/px4video0\"," pt1_dev.h && \
+  sed -i -e "/^char \*isdb_t_dev\[NUM_ISDB_T_DEV\] = {$/a \ \ \ \ \"/dev/px4video2\",\n\ \ \ \ \"/dev/px4video3\"," pt1_dev.h && \
+  ./autogen.sh && \
+  ./configure && \
+  make -j$(nproc) && \
+  make install
+
+# clean
+RUN rm -rf /tmp/*
+
+# Java
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+
+# izanagi
+RUN mkdir -p /opt/izanagi
+ADD ./build/libs/izanagi-1.0.0-SNAPSHOT.jar izanagi.jar
+
+# locale
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+
+# run app
+EXPOSE 8081
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=izanagi-hsqldb", "-Dserver.port=8081", "-jar", "/izanagi.jar"]
+#ENTRYPOINT ["sh", "-c", "java ... -jar /app.jar"]

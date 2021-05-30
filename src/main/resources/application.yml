@@ -1,0 +1,119 @@
+server:
+  port: 8081
+  error:
+    include-stacktrace: never
+  max-http-header-size: 32KB
+
+spring:
+  application:
+    name: izanagi
+  profiles:
+    active: izanagi-hsqldb
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  #flyway:
+  #  schemas: TBD
+  mvc:
+    async:
+      request-timeout: 86400000 # ms (1 day)
+  jackson:
+    serialization:
+      indent_output: true
+  messages:
+    basename: i18n/messages
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+info:
+  app:
+    version: $version
+
+aaa:
+  enabled: true
+  initial-username:
+  initial-password:
+
+tuner:
+  json: tuner.json
+  channel-configuration: channel-configuration.json
+
+unix-domain-socket:
+  enabled: false
+  directory: /opt/izanagi
+
+epgdump:
+  epgdump-path: /usr/local/bin/epgdump
+  epgdump-temporary-path: /tmp/izanagi-epgdump
+  epgdump-recording-duration: 32
+  epgdump-execute-schedule-cron: 0 0 6 * * *
+  epgdump-execute-on-boot-ignore-interval: 86400000 # ms (1 day)
+
+---
+spring:
+  config:
+    activate:
+      on-profile: izanagi-hsqldb
+---
+spring:
+  config:
+    activate:
+      on-profile: izanagi-postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/izanagidb
+    username:
+    password:
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+---
+spring:
+  config:
+    activate:
+      on-profile: izanagi-mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/izanagidb?useSSL=false&allowPublicKeyRetrieval=true
+    username:
+    password:
+---
+spring:
+  config:
+    activate:
+      on-profile: izanagi-postgresql-docker
+  datasource:
+    url: jdbc:postgresql://izanagi-postgresql:5432/izanagidb
+    username:
+    password:
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+---
+spring:
+  config:
+    activate:
+      on-profile: izanagi-mysql-docker
+  datasource:
+    url: jdbc:mysql://izanagi-mysql:3306/izanagidb?useSSL=false&allowPublicKeyRetrieval=true
+    username:
+    password:
