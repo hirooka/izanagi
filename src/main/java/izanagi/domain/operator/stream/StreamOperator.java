@@ -42,6 +42,7 @@ public class StreamOperator implements IStreamOperator {
         .replace("<duration>", durationString)
         .replace("<destination>", "-");
     final String[] commandArray = command.split(" ");
+    log.info(String.join(" ", commandArray));
 
     return new ResponseEntity<>(outputStream -> {
       final ProcessBuilder processBuilder = new ProcessBuilder(commandArray);
