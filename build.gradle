@@ -1,5 +1,5 @@
 plugins {
-  id 'org.springframework.boot' version '2.5.0'
+  id 'org.springframework.boot' version '2.5.2'
   id 'com.gorylenko.gradle-git-properties' version '2.3.1'
   id 'com.palantir.git-version' version '0.12.3'
   id 'checkstyle'
@@ -30,13 +30,13 @@ dependencies {
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
   implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
-  implementation group: 'commons-io', name: 'commons-io', version: '2.9.0'
+  implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
   // RDBMS
-  implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
+  implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.23'
   implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.0'
-  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
-  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '7.9.2'
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
+  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '7.11.3'
 
   // Unix Domain Socket
   implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.3.4'
@@ -46,7 +46,7 @@ dependencies {
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.9'
 
   // Micrometer Registry Prometheus
-  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.7.0'
+  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.7.2'
 
   // Lombok
   compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
@@ -78,7 +78,7 @@ configurations.all {
 }
 
 checkstyle {
-  toolVersion '8.42'
+  toolVersion '8.44'
 }
 
 springBoot {
