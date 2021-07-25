@@ -43,7 +43,7 @@ public class ProgramActivity implements IProgramActivity {
 
   @Scheduled(cron = "${epgdump.epgdump-execute-schedule-cron}")
   void cron() {
-    log.info("Scheculed epgdump execution");
+    log.info("Scheduled epgdump execution");
     programOperator.acquireEpg();
   }
 

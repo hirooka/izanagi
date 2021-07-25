@@ -30,7 +30,7 @@ public class AbstractEntity implements Serializable {
   private Date createdDate;
 
   @LastModifiedBy
-  private String lastModefiedBy;
+  private String lastModifiedBy;
 
   @LastModifiedDate
   private Date lastModifiedDate;
