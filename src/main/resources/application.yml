@@ -104,7 +104,7 @@ spring:
       on-profile: izanagi-postgres-docker
   datasource:
     url: jdbc:postgresql://izanagi-postgres:5432/izanagidb
-    username:
+    username: izanagi
     password:
   jpa:
     properties:
