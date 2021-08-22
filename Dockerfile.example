@@ -58,9 +58,13 @@ ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
 # izanagi
 RUN mkdir -p /opt/izanagi
+RUN cd /tmp
 COPY . .
 RUN ./gradlew build
-ADD ./build/libs/izanagi-1.0.0-SNAPSHOT.jar izanagi.jar
+RUN mv ./build/libs/izanagi-1.0.0-SNAPSHOT.jar /izanagi.jar
+
+# clean
+RUN rm -rf /tmp/*
 
 # locale
 RUN locale-gen ja_JP.UTF-8
@@ -70,5 +74,5 @@ ENV LC_ALL ja_JP.UTF-8
 
 # run app
 EXPOSE 8081
-ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=izanagi-hsqldb", "-Dserver.port=8081", "-jar", "/izanagi.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=izanagi-postgres-docker", "-Dserver.port=8081", "-jar", "/izanagi.jar"]
 #ENTRYPOINT ["sh", "-c", "java ... -jar /app.jar"]
