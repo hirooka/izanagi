@@ -35,7 +35,7 @@ dependencies {
   // RDBMS
   implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.23'
   implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.0'
-  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
   //implementation group: 'org.flywaydb', name: 'flyway-core', version: '7.11.3'
 
   // Unix Domain Socket
