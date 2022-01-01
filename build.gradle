@@ -1,6 +1,6 @@
 plugins {
-  id 'org.springframework.boot' version '2.5.4'
-  id 'com.gorylenko.gradle-git-properties' version '2.3.1'
+  id 'org.springframework.boot' version '2.6.2'
+  id 'com.gorylenko.gradle-git-properties' version '2.3.2'
   id 'com.palantir.git-version' version '0.12.3'
   id 'checkstyle'
 }
@@ -11,8 +11,8 @@ apply plugin: 'io.spring.dependency-management'
 group 'izanagi'
 version version
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
   mavenCentral()
@@ -29,28 +29,28 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-  implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+  implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.5'
   implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
   // RDBMS
-  implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.23'
-  implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.0'
-  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
-  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '7.11.3'
+  implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
+  implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.1'
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.3.0'
 
   // Unix Domain Socket
   implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.4.0'
   implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.4.0'
 
   // OpenAPI
-  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.10'
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.3'
 
   // Micrometer Registry Prometheus
-  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.7.3'
+  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.8.1'
 
   // Lombok
-  compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
-  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+  compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 }
 
 bootJar {
@@ -78,7 +78,7 @@ configurations.all {
 }
 
 checkstyle {
-  toolVersion '8.44'
+  toolVersion '9.0'
 }
 
 springBoot {
