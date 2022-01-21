@@ -1,7 +1,7 @@
 plugins {
   id 'org.springframework.boot' version '2.6.2'
   id 'com.gorylenko.gradle-git-properties' version '2.4.0-rc2'
-  id 'com.palantir.git-version' version '0.12.3'
+  id 'com.palantir.git-version' version '0.13.0'
   id 'checkstyle'
 }
 
@@ -35,8 +35,8 @@ dependencies {
   // RDBMS
   implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
   implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.1'
-  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
-  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.4.1'
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.4.2'
 
   // Unix Domain Socket
   implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.4.0'
