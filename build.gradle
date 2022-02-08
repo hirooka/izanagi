@@ -8,7 +8,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
-group 'izanagi'
+group 'pro.hirooka'
 version version
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -78,7 +78,7 @@ configurations.all {
 }
 
 checkstyle {
-  toolVersion '9.2'
+  toolVersion '9.3'
 }
 
 springBoot {
