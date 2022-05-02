@@ -11,7 +11,7 @@ Transport Stream (MPEG2-TS) Server Application
 
 ## Getting Started
 
-The easiest way to run application is to use Docker. In this case you need install Docker on Ubuntu 20.04 ([Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)) and create Dockerfile by referring to [example Dockerfile](Dockerfile.example).
+The easiest way to run application is to use Docker. In this case you need install Docker on Ubuntu 22.04 ([Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)) and create Dockerfile by referring to [example Dockerfile](Dockerfile.example).
 
 Additionally, You need create `src/main/resources/tuner.json` by referring to example tuner.json and edit `channel-configuration.json` as necessary and then build application and build Docker image. You also need PostgreSQL image.
 
@@ -32,6 +32,7 @@ docker build . -t $USER/izanagi:1.0.0-SNAPSHOT
 docker network create nihon
 docker pull postgres:14
 docker run \
+  --rm \
   --name izanagi-postgres \
   --net nihon \
   -e POSTGRES_USER=izanagi \
@@ -41,19 +42,34 @@ docker run \
   -d \
   postgres
 docker run \
-    --name izanagi \
-    --net nihon \
-    --privileged \
-    --volume /dev/:/dev/ \
-    --volume /var/run/pcscd/pcscd.comm:/var/run/pcscd/pcscd.comm \
-    --volume /etc/localtime:/etc/localtime:ro \
-    -p 8081:8081 \
-    -d \
-    -it $USER/izanagi:1.0.0-SNAPSHOT
+  --rm \
+  --name izanagi \
+  --net nihon \
+  --privileged \
+  --volume /dev/:/dev/ \
+  --volume /var/run/pcscd/pcscd.comm:/var/run/pcscd/pcscd.comm \
+  --volume /etc/localtime:/etc/localtime:ro \
+  -p 8081:8081 \
+  -d \
+  -it $USER/izanagi:1.0.0-SNAPSHOT
+```
+
+You can get EPG via
+
+```
+curl http://localhost:8081/api/v1/programs/1
 ```
 
 You can get stream via 
 
 ```
 curl http://localhost:8081/api/v1/streams/1 > 1.ts
+```
+
+### Clean Application
+
+```
+docker stop izanagi
+docker stop izanagi-postgres
+docker network rm nihon
 ```
