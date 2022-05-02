@@ -4,7 +4,7 @@ Transport Stream (MPEG2-TS) Server Application
 
 ## Prerequisites
 
-- Linux PC (Ubuntu 20.04)
+- Linux PC (Ubuntu 22.04)
 - MPEG2-TS Tuner and appropriate driver, recording application
   - Tested: PT3, PX-W3U4, PX-S1UD V2.0, PX-BCUD
 - Java 17
