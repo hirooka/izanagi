@@ -54,7 +54,8 @@ RUN cd /tmp && \
 RUN rm -rf /tmp/*
 
 # Java
-ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
+ARG ARCH=amd64
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-$ARCH
 
 # izanagi
 RUN mkdir -p /opt/izanagi

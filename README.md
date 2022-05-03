@@ -4,7 +4,7 @@ Transport Stream (MPEG2-TS) Server Application
 
 ## Prerequisites
 
-- Linux PC (Ubuntu 22.04)
+- Linux PC (Ubuntu 22.04, Raspberry Pi OS (64bit))
 - MPEG2-TS Tuner and appropriate driver, recording application
   - Tested: PT3, PX-W3U4, PX-S1UD V2.0, PX-BCUD
 - Java 17
@@ -25,6 +25,8 @@ vi src/main/resources/tuner.json
 vi src/main/resources/channel-configuration.json
 ./gradlew build
 docker build . -t $USER/izanagi:1.0.0-SNAPSHOT
+# Raspberry Pi
+# docker build . -t $USER/izanagi:1.0.0-SNAPSHOT --build-arg ARCH=arm64
 ```
 
 ### Run Application (with PostgreSQL and Docker network)
