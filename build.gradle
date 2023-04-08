@@ -83,7 +83,7 @@ configurations.all {
 }
 
 checkstyle {
-  toolVersion '10.2'
+  toolVersion '10.9.3'
   configFile = file('config/checkstyle/checkstyle.xml')
 }
 
