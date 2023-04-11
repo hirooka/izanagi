@@ -1,7 +1,7 @@
 plugins {
   id 'org.springframework.boot' version '3.0.5'
   id 'com.gorylenko.gradle-git-properties' version '2.4.1'
-  id 'com.palantir.git-version' version '0.15.0'
+  id 'com.palantir.git-version' version '3.0.0'
   id 'checkstyle'
   id 'jacoco'
 }
@@ -37,24 +37,24 @@ dependencies {
   implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
   // RDBMS
-  implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1'
+  implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
   implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.7.1'
-  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
-  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.10'
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.32'
+  //implementation group: 'org.flywaydb', name: 'flyway-core', version: '9.16.3'
 
   // Unix Domain Socket
-  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.4.0'
-  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.4.0'
+  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.6.2'
+  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.6.2'
 
   // OpenAPI
-  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.14'
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
 
   // Micrometer Registry Prometheus
-  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.10.2'
+  implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.10.5'
 
   // Lombok
-  compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
-  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+  compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
+  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
 }
 
 bootJar {
@@ -83,7 +83,7 @@ configurations.all {
 }
 
 checkstyle {
-  toolVersion '10.2'
+  //toolVersion '10.2'
   configFile = file('config/checkstyle/checkstyle.xml')
 }
 
