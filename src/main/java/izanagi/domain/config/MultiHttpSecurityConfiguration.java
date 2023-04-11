@@ -4,14 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import izanagi.domain.service.user.IIzanagiUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
@@ -21,7 +20,7 @@ public class MultiHttpSecurityConfiguration {
 
   @Configuration
   @Order(1)
-  public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+  public static class ApiWebSecurityConfigurationAdapter {
 
     private final AaaConfig aaaConfig;
     private final IIzanagiUserDetailsService izanagiUserDetailsService;
@@ -35,49 +34,36 @@ public class MultiHttpSecurityConfiguration {
       this.izanagiUserDetailsService = requireNonNull(izanagiUserDetailsService);
     }
 
-    @Override
-    protected void configure(
-        AuthenticationManagerBuilder authenticationManagerBuilder
-    ) throws Exception {
-      if (aaaConfig.isEnabled()) {
-        authenticationManagerBuilder.userDetailsService(this.izanagiUserDetailsService);
-      }
-    }
-
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain10(HttpSecurity http) throws Exception {
       if (aaaConfig.isEnabled()) {
         http
-            .antMatcher("/api/**")
-            .authorizeRequests()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .httpBasic()
-            .and()
-            .csrf()
-            .disable();
+                .authorizeHttpRequests(authz ->
+                        authz.requestMatchers("/api/**")
+                                .permitAll().anyRequest().authenticated())
+                .httpBasic()
+                .and()
+                .csrf()
+                .disable();
       } else {
         http
-            .antMatcher("/**")
-            .authorizeRequests()
-            .anyRequest()
-            .permitAll()
-            .and()
-            .csrf().disable()
-            .httpBasic().disable();
+                .authorizeHttpRequests(authz -> authz.requestMatchers("/**").permitAll())
+                .csrf().disable()
+                .httpBasic().disable();
       }
+      return http.build();
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-      web
-          .ignoring()
-          .antMatchers("/images/**", "/webjars/**");
+    @Bean
+    public SecurityFilterChain securityFilterChain11(HttpSecurity http) throws Exception {
+      http.authorizeHttpRequests(authz ->
+              authz.requestMatchers("/images/**", "/webjars/**").permitAll());
+      return http.build();
     }
   }
 
   @Configuration
-  public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+  public static class FormLoginWebSecurityConfigurerAdapter {
 
     final AaaConfig aaaConfig;
     final IIzanagiUserDetailsService izanagiUserDetailsService;
@@ -91,17 +77,8 @@ public class MultiHttpSecurityConfiguration {
       this.izanagiUserDetailsService = requireNonNull(izanagiUserDetailsService);
     }
 
-    @Override
-    protected void configure(
-        AuthenticationManagerBuilder authenticationManagerBuilder
-    ) throws Exception {
-      if (aaaConfig.isEnabled()) {
-        authenticationManagerBuilder.userDetailsService(this.izanagiUserDetailsService);
-      }
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain20(HttpSecurity http) throws Exception {
       if (aaaConfig.isEnabled()) {
         http
             .authorizeRequests()
@@ -121,21 +98,18 @@ public class MultiHttpSecurityConfiguration {
             .permitAll();
       } else {
         http
-            .antMatcher("/**")
-            .authorizeRequests()
-            .anyRequest()
-            .permitAll()
-            .and()
+            .authorizeHttpRequests(authz -> authz.requestMatchers("/**").permitAll())
             .csrf().disable()
             .httpBasic().disable();
       }
+      return http.build();
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-      web
-          .ignoring()
-          .antMatchers("/images/**", "/webjars/**");
+    @Bean
+    public SecurityFilterChain securityFilterChain21(HttpSecurity http) throws Exception {
+      http.authorizeHttpRequests(authz ->
+              authz.requestMatchers("/images/**", "/webjars/**").permitAll());
+      return http.build();
     }
   }
 }

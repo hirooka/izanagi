@@ -2,10 +2,10 @@ package izanagi.domain.activity;
 
 import izanagi.domain.config.EpgdumpConfiguration;
 import izanagi.domain.operator.program.IProgramOperator;
+import jakarta.annotation.PostConstruct;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
