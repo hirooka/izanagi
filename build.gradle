@@ -38,7 +38,7 @@ dependencies {
 
   // RDBMS
   implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
-  implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.7.1'
+  implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.7.3'
   implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.32'
   //implementation group: 'org.flywaydb', name: 'flyway-core', version: '9.16.3'
 
