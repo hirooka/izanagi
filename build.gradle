@@ -44,7 +44,7 @@ dependencies {
 
   // Unix Domain Socket
   implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.6.2'
-  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.6.2'
+  implementation group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.10.1'
 
   // OpenAPI
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
